@@ -1,0 +1,102 @@
+-- Creating the client table
+CREATE TABLE client (
+    clno CHAR(3) PRIMARY KEY,
+    name VARCHAR2(12),
+    address VARCHAR2(30)
+);
+
+-- Creating the stock table
+CREATE TABLE stock (
+    company CHAR(7) PRIMARY KEY,
+    price NUMBER(6,2),
+    dividend NUMBER(4,2),
+    eps NUMBER(4,2)
+);
+
+-- Creating the trading table
+CREATE TABLE trading (
+    company CHAR(7) PRIMARY KEY,
+    exchange VARCHAR2(12)
+);
+
+-- Creating the purchase table
+CREATE TABLE purchase (
+    clno CHAR(3),
+    company CHAR(7),
+    pdate DATE,
+    qty NUMBER(6),
+    price NUMBER(6,2),
+    PRIMARY KEY (clno, company, pdate), -- Assuming purchase date is part of primary key to allow multiple purchases by the same client for the same company on different dates
+    FOREIGN KEY (clno) REFERENCES client(clno),
+    FOREIGN KEY (company) REFERENCES stock(company)
+);
+
+
+
+
+###########################################################
+-- Creating the client table
+CREATE TABLE client (
+    clno CHAR(3) PRIMARY KEY,
+    name VARCHAR2(12),
+    address VARCHAR2(30)
+);
+
+-- Creating the stock table
+CREATE TABLE stock (
+    company CHAR(7) PRIMARY KEY,
+    price NUMBER(6,2),
+    dividend NUMBER(4,2),
+    eps NUMBER(4,2)
+);
+
+-- Creating the trading table
+CREATE TABLE trading (
+    company CHAR(7) PRIMARY KEY,
+    exchange VARCHAR2(12)
+);
+
+-- Creating the purchase table
+CREATE TABLE purchase (
+    clno CHAR(3),
+    company CHAR(7),
+    pdate DATE,
+    qty NUMBER(6),
+    price NUMBER(6,2),
+    PRIMARY KEY (clno, company, pdate), -- Assuming purchase date is part of primary key to allow multiple purchases by the same client for the same company on different dates
+    FOREIGN KEY (clno) REFERENCES client(clno),
+    FOREIGN KEY (company) REFERENCES stock(company)
+);
+
+
+CREATE TYPE client_t AS OBJECT(
+    clno CHAR(3) PRIMARY KEY,
+    name VARCHAR2(12),
+    address VARCHAR2(30),
+    investments investment_table_type
+) 
+
+CREATE TABLE stock1 (
+    company CHAR(7) PRIMARY KEY,
+    cprice NUMBER(6,2),
+    extraded VARCHAR(20),
+    lastdividend NUMBER(4,2),
+    eps NUMBER(4,2)
+);
+
+CREATE TYPE invest_t AS OBJECT (
+    company CHAR(7),
+    pprice NUMBER(6,2),
+    purchase_date DATE,
+    qty NUMBER(6)
+);
+
+CREATE TYPE investment_table_type AS TABLE OF invest_t;
+
+
+
+
+
+
+
+
